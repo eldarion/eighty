@@ -1,7 +1,7 @@
 package server
 
 import (
-	"log"
+	"eighty/log"
 	"net"
 	"net/http"
 	"sync"
@@ -29,7 +29,7 @@ func (s *HttpServer) ListenAndServe() error {
 
 func (s *HttpServer) Serve(listener net.Listener, handler http.Handler) error {
 	s.shutdownHandler = func() {
-		log.Printf("shutdown requested")
+		log.Infof("shutdown requested")
 		listener.Close()
 	}
 	s.listenForShutdown()

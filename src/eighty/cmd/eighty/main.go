@@ -1,13 +1,13 @@
 package main
 
 import (
+	"eighty/log"
 	"eighty/server"
+	"flag"
 	"fmt"
-	"log"
 	"os"
 	"os/signal"
 	"syscall"
-	"flag"
 )
 
 func main() {
@@ -19,7 +19,7 @@ func main() {
 	}
 	setupSignals(server)
 	server.ListenAndServe()
-	log.Printf("stopping server")
+	log.Infof("stopping server")
 }
 
 func setupSignals(server *server.HttpServer) {
