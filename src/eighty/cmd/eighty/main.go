@@ -7,10 +7,13 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"flag"
 )
 
 func main() {
-	port := 80
+	var port int
+	flag.IntVar(&port, "port", 80, "port to listen on for HTTP connections")
+	flag.Parse()
 	server := &server.HttpServer{
 		Addr: fmt.Sprintf(":%d", port),
 	}
