@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-var logger = log.New(os.Stderr, "[eighty] ", log.LstdFlags)
+var logger = log.New(os.Stdout, "[eighty] ", log.LstdFlags)
 
 func Printf(level string, format string, v ...interface{}) {
 	logger.Printf(fmt.Sprintf("%-9s | %s", level, format), v...)

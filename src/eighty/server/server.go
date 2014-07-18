@@ -1,6 +1,7 @@
 package server
 
 import (
+	"eighty/bind"
 	"eighty/log"
 	"net"
 	"net/http"
@@ -8,17 +9,20 @@ import (
 )
 
 type HttpServer struct {
-	Addr            string
+	Bind            string
 	Handler         http.Handler
 	Shutdown        chan bool
 	wg              sync.WaitGroup
 	shutdownHandler func()
 	server          http.Server
+	einhornState    struct {
+		fdCount int
+	}
 }
 
 func (s *HttpServer) ListenAndServe() error {
 	s.Shutdown = make(chan bool)
-	netListener, err := net.Listen("tcp", s.Addr)
+	netListener, err := bind.Listen(s.Bind)
 	if err != nil {
 		return err
 	}
@@ -44,6 +48,7 @@ func (s *HttpServer) Serve(listener net.Listener, handler http.Handler) error {
 			}
 		},
 	}
+	s.ready()
 	err := s.server.Serve(listener)
 	if err != nil {
 		if _, ok := err.(listenerAlreadyClosed); ok {
@@ -64,6 +69,15 @@ func (s *HttpServer) StartRoutine() {
 
 func (s *HttpServer) FinishRoutine() {
 	s.wg.Done()
+}
+
+func (s *HttpServer) ready() {
+	bind.Ready()
+	log.Infof("ready to serve")
+}
+
+func (s *HttpServer) einhornMode() bool {
+	return s.einhornState.fdCount > 0
 }
 
 func (s *HttpServer) listenForShutdown() {
