@@ -10,4 +10,4 @@ ADD . /app
 WORKDIR /app
 RUN make
 EXPOSE 80
-CMD einhorn -b :80,r -m manual eighty -bind=einhorn@0
+ENTRYPOINT ["einhorn", "-b", "0.0.0.0:80,r", "-m", "manual", "eighty", "-bind=einhorn@0"]
