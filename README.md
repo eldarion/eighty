@@ -25,9 +25,9 @@ To run on port 80:
 
     bin/eighty
 
-You can change the port through `-bind`
+You can change the port through `-bind`:
 
-    bin/eighty -bind=:8000
+    bin/eighty -bind=:8080
 
 If you need to listen on a specific interface:
 
