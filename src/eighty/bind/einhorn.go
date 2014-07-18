@@ -2,7 +2,7 @@ package bind
 
 import (
 	"eighty/log"
-	"github.com/stripe/go-einhorn/einhorn"
+	"github.com/brosner/go-einhorn/einhorn"
 	"net"
 )
 
