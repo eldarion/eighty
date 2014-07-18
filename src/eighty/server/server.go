@@ -15,9 +15,6 @@ type HttpServer struct {
 	wg              sync.WaitGroup
 	shutdownHandler func()
 	server          http.Server
-	einhornState    struct {
-		fdCount int
-	}
 }
 
 func (s *HttpServer) ListenAndServe() error {
@@ -74,10 +71,6 @@ func (s *HttpServer) FinishRoutine() {
 func (s *HttpServer) ready() {
 	bind.Ready()
 	log.Infof("ready to serve")
-}
-
-func (s *HttpServer) einhornMode() bool {
-	return s.einhornState.fdCount > 0
 }
 
 func (s *HttpServer) listenForShutdown() {
