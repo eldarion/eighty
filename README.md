@@ -6,6 +6,7 @@ eighty is an HTTP server for performing dynamic HTTP routing.
 
 * graceful shutdown of the HTTP server
 * zero downtime restarts (through [Einhorn](https://github.com/stripe/einhorn))
+* HTTP API for management of eighty cluster
 
 ## Requirements
 

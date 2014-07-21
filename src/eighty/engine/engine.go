@@ -1,24 +1,12 @@
 package engine
 
-import (
-	"eighty/templates"
-	"net/http"
-)
-
 type Engine struct {
+	Vhosts map[string]*Vhost
 }
 
 func New() *Engine {
 	e := &Engine{}
+	e.Vhosts = make(map[string]*Vhost)
+	e.Vhosts["_eighty"] = &Vhost{Mode: "management"}
 	return e
-}
-
-func (e *Engine) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	vhost := e.LookupVhost(r)
-	var handler http.Handler
-	switch vhost.Mode {
-	default:
-		handler = templates.Response(http.StatusNotFound, "not_configured.html")
-	}
-	handler.ServeHTTP(w, r)
 }

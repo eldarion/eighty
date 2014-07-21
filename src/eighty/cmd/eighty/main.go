@@ -2,6 +2,7 @@ package main
 
 import (
 	"eighty/engine"
+	"eighty/handler"
 	"eighty/log"
 	"eighty/server"
 	"flag"
@@ -17,7 +18,7 @@ func main() {
 	engine := engine.New()
 	server := &server.HttpServer{
 		Bind:    bind,
-		Handler: engine,
+		Handler: handler.EngineHandler(engine),
 	}
 	setupSignals(server)
 	err := server.ListenAndServe()

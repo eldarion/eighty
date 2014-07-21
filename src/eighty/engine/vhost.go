@@ -9,5 +9,8 @@ type Vhost struct {
 }
 
 func (e *Engine) LookupVhost(r *http.Request) *Vhost {
-	return &Vhost{}
+	if _, ok := e.Vhosts[r.Host]; ok {
+		return e.Vhosts[r.Host]
+	}
+	return nil
 }
