@@ -1,4 +1,4 @@
-# eighty
+# eighty [![build status](http://img.shields.io/travis/eldarion/eighty.svg)](https://travis-ci.org/eldarion/eighty)
 
 eighty is an HTTP server for performing dynamic HTTP routing.
 
