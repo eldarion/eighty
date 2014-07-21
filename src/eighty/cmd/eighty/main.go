@@ -1,6 +1,7 @@
 package main
 
 import (
+	"eighty/engine"
 	"eighty/log"
 	"eighty/server"
 	"flag"
@@ -13,9 +14,16 @@ func main() {
 	var bind string
 	flag.StringVar(&bind, "bind", ":80", "socket to bind (e.g., localhost:8000 or einhorn@0)")
 	flag.Parse()
-	server := &server.HttpServer{Bind: bind}
+	engine := engine.New()
+	server := &server.HttpServer{
+		Bind:    bind,
+		Handler: engine,
+	}
 	setupSignals(server)
-	server.ListenAndServe()
+	err := server.ListenAndServe()
+	if err != nil {
+		log.Fatalf("%v", err)
+	}
 	log.Infof("stopping server")
 }
 
